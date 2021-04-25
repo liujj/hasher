@@ -68,6 +68,7 @@ ul.buttons li.l2.on, ul.buttons li.l3.on {
   margin-top: 5px;
 }
 #input textarea {
+  margin-top: 5px;
   width: 100%;
   font-family: monospace;
 }
@@ -76,7 +77,6 @@ ul.buttons li.l2.on, ul.buttons li.l3.on {
   font-family: monospace;
 }
 #input .title {
-  font-size: 12px;
   font-weight: bold;
   font-family: sans-serif;
 }

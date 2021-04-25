@@ -21,7 +21,7 @@ function copyToClipboard(id) {
 
 var hasher = {
   ipcalc : new ipCalc(),
-  tab : tabs.hash,
+  tab : tabs.encode,
   elements: {
     h1 : {
       id : tabs.hash+"md5",
@@ -872,6 +872,7 @@ var hasher = {
   init : function () {
     // render HTML
     this.render();
+    $("#input-value").val(localStorage.getItem("input"));
     // Register click events
     for (var i in this.elements) {
       if (this.elements[i].tab == this.tab) {
@@ -910,6 +911,7 @@ var hasher = {
     $("#output .note").hide();
     var input = $("#input-value").val();
     var password = $("#input-password").val();
+    localStorage.setItem("input", input);
     for (var i in this.elements) {
       this.elements[i].rows = 0;
       if (this.elements[i].tab == this.tab) {
@@ -956,7 +958,7 @@ var hasher = {
             '</div>'+
             '<div id="'+this.elements[i].id+'-value" class="value">'+
               //'<input id="'+this.elements[i].id+'" type="text" />';
-              '<textarea id="'+this.elements[i].id+'" rows="1"></textarea>';
+              '<textarea id="'+this.elements[i].id+'" rows="1" readonly></textarea>';
               // ruler
               if (this.elements[i].ruler != undefined) {
                 html += '<div id="'+this.elements[i].id+'-ruler" class="ruler"></div>'

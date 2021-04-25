@@ -21,6 +21,10 @@ $(document).ready(function() {
   $("#input").change(function () {
     hasher.update();
   });
+  $("#input-title").click(function () {
+    $("#input-value").val("")
+    hasher.update();
+  })
 
   // Open separate window (pop-out)
   $("#button-popout").click(function () {
