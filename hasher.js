@@ -7,21 +7,22 @@ var tabs = {
   net : 5,
   time : 6,
   encode : 7,
-  number : 8
+  number : 8,
+  string : 9
 };
 
 /*
  *  Copy to clipboard
  */
 function copyToClipboard(id) {
-  $("#"+id).select(); 
+  $("#"+id).select();
   document.execCommand('copy');
 }
 
 
 var hasher = {
   ipcalc : new ipCalc(),
-  tab : tabs.encode,
+  tab : tabs.time,
   elements: {
     h1 : {
       id : tabs.hash+"md5",
@@ -513,13 +514,13 @@ var hasher = {
           var h = ddd.getHours();
           var i = ddd.getMinutes();
           var s = ddd.getSeconds();
-          
+
           m = (m < 10) ? "0" + m : m;
           d = (d < 10) ? "0" + d : d;
           h = (h < 10) ? "0" + h : h;
           i = (i < 10) ? "0" + i : i;
           s = (s < 10) ? "0" + s : s;
-          
+
           return y + "-" + m + "-" + d + " " + h + ":" + i + ":" + s;
         }
         return "";
@@ -543,13 +544,13 @@ var hasher = {
           var h = ddd.getUTCHours();
           var i = ddd.getUTCMinutes();
           var s = ddd.getUTCSeconds();
-          
+
           m = (m < 10) ? "0" + m : m;
           d = (d < 10) ? "0" + d : d;
           h = (h < 10) ? "0" + h : h;
           i = (i < 10) ? "0" + i : i;
           s = (s < 10) ? "0" + s : s;
-          
+
           return y + "-" + m + "-" + d + " " + h + ":" + i + ":" + s;
         }
         return "";
@@ -827,7 +828,7 @@ var hasher = {
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
-        }          
+        }
 
         return escapeHtml(input);
       }
@@ -844,7 +845,7 @@ var hasher = {
             .replace(/&gt;/g, ">")
             .replace(/&quot;/g, '"')
             .replace(/&#039;/g, "'");
-        }          
+        }
 
         return unescapeHtml(input);
       }
@@ -870,6 +871,10 @@ var hasher = {
   /*
    */
   init : function () {
+    tabName = localStorage.getItem("tab")
+    this.tab = tabs[tabName]
+    $("#tabs li").removeClass("on");
+    $("#tabs #"+tabName).addClass("on");
     // render HTML
     this.render();
     $("#input-value").val(localStorage.getItem("input"));
@@ -925,7 +930,7 @@ var hasher = {
         if (res != null && res.length != undefined) {
           rows = res.length + 1;
         }
-        
+
         this.elements[i].rows = rows;
         if (rows > 1) {
           $("#"+this.elements[i].id+"-expand").show().text(rows + " lines").show();
@@ -941,13 +946,13 @@ var hasher = {
     }
   },
   /*
-   * 
+   *
    */
   render : function () {
     $("#output").html("");
     for (var i in this.elements) {
       if (this.elements[i].tab == this.tab) {
-        var html = 
+        var html =
           '<div class="element">'+
             '<div>'+
               '<span id="'+this.elements[i].id+'-title" class="title">'+
@@ -963,7 +968,7 @@ var hasher = {
               if (this.elements[i].ruler != undefined) {
                 html += '<div id="'+this.elements[i].id+'-ruler" class="ruler"></div>'
               }
-        html += 
+        html +=
             '</div>'+
           '</div>';
         $("#output").append(html);

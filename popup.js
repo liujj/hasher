@@ -58,6 +58,7 @@ $(document).ready(function() {
     }
 
     hasher.tab = tabs[this.id];
+    localStorage.setItem("tab", this.id);
     hasher.init();
     hasher.update();
     $("#input-value").focus();
